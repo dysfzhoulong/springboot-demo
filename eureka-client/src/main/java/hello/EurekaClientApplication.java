@@ -31,6 +31,11 @@ class ServiceInstanceRestController {
 	@Autowired
 	private Environment env;
 
+	@RequestMapping("/hello")
+	public String home() {
+		return "Hello from Gallery Service running at port: " + env.getProperty("local.server.port");
+	}
+	
     @RequestMapping("/service-instances/{applicationName}")
     @LoadBalanced	
     public List<ServiceInstance> serviceInstancesByApplicationName(
@@ -38,8 +43,4 @@ class ServiceInstanceRestController {
         return this.discoveryClient.getInstances(applicationName);
     }
     
-	@RequestMapping("/hello")
-	public String home() {
-		return "Hello from Gallery Service running at port: " + env.getProperty("local.server.port");
-	}
 }
